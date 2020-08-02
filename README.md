@@ -6,6 +6,9 @@ meta-agl-html5-dev
 This meta-layer is used only while in-development
 features for the AGL HTML5 flavor.
 
+In Jellyfish the new AGL-compositor was introduced,
+chromium, WAM and webapps need to be adapted.
+
 Quick start guide
 -----------------
 
