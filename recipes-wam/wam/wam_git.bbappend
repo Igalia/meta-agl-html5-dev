@@ -5,4 +5,4 @@ SRC_URI = "\
     file://trunc-webapp-roles.patch \
 "
 
-SRCREV = "d6f9133b406124eda618668987de3e5f45584391"
+SRCREV = "7fe85fd505f3246e0448bc92348b9b7126ae943c"
