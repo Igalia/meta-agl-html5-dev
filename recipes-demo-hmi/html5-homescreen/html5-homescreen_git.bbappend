@@ -1,2 +1,2 @@
 SRC_URI = "git://github.com/AGL-web-applications/homescreen.git;protocol=https;branch=WIP/agl-compositor"
-SRCREV = "0a413ed0c39d86de0765fb35f6edc551f6761b05"
+SRCREV = "509aca95f4bc5ece9209cad58d8e3af0a6da7833"
