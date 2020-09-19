@@ -6,6 +6,8 @@ SRC_URI = "\
     file://v8-qemu-wrapper.patch \
 "
 
+# Needed by catapult
+DEPENDS += "python-six-native python-beautifulsoup4-native python-lxml-native python-html5lib-native python-webencodings-native"
 
 SRCREV_chromium79 = "785d9de6b39827403c6a27765d12a814d7a0dc29"
 SRCREV_v8 = "e876fd0e28bd3bda5815394874183b7e6079d440"
