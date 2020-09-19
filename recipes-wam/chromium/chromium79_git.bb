@@ -4,6 +4,7 @@ SRC_URI = "\
     git://github.com/igalia/${PN};branch=@37.agl.jellyfish;protocol=https;rev=${SRCREV_chromium79};name=chromium79 \
     git://github.com/webosose/chromium-v8;branch=@chromium79;destsuffix=git/src/v8;rev=${SRCREV_v8};name=v8 \
     file://v8-qemu-wrapper.patch \
+    file://0001-GCC-fix-includes-for-gcc-10.patch \
 "
 
 # Needed by catapult
