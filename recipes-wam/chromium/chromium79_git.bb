@@ -14,3 +14,8 @@ BROWSER_APPLICATION = "chromium79-browser"
 BROWSER_APPLICATION_DIR = "/opt/chromium79"
 
 GN_ARGS += "use_gtk=false"
+
+# Disable closure_compile
+# Else we need HOSTTOOLS += "java"
+GN_ARGS += "closure_compile=false"
+
