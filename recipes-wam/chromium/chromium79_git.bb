@@ -1,4 +1,4 @@
-require recipes-wam/chromium/chromium68_git.bb
+require chromium.inc
 
 SRC_URI = "\
     git://github.com/igalia/${PN};branch=@37.agl.jellyfish;protocol=https;rev=${SRCREV_chromium79};name=chromium79 \
