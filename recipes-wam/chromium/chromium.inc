@@ -140,21 +140,6 @@ GN_ARGS += "symbol_level=0"
 # let Yocto handle everything.
 GN_ARGS += "use_sysroot=false"
 
-# Toolchains we will use for the build. We need to point to the toolchain file
-# we've created, set the right target architecture and make sure we are not
-# using Chromium's toolchain (bundled clang, bundled binutils etc).
-GN_ARGS += "\
-        custom_toolchain=\"//build/toolchain/yocto:yocto_target\" \
-        gold_path=\"\" \
-        host_toolchain=\"//build/toolchain/yocto:yocto_native\" \
-        is_clang=${@is_default_cc_clang(d)} \
-        clang_base_path=\"${@clang_install_path(d)}\" \
-        clang_use_chrome_plugins=false \
-        linux_use_bundled_binutils=false \
-        target_cpu=\"${@gn_target_arch_name(d)}\" \
-        v8_snapshot_toolchain=\"//build/toolchain/yocto:yocto_target\" \
-"
-
 # ARM builds need special additional flags (see ${S}/build/config/arm.gni).
 # If we do not pass |arm_arch| and friends to GN, it will deduce a value that
 # will then conflict with TUNE_CCARGS and CC.
@@ -199,43 +184,6 @@ GN_ARGS_append_armv6 += 'arm_use_neon=false'
 # tcmalloc does not play well with musl as of M62 (and possibly earlier).
 # https://github.com/gperftools/gperftools/issues/693
 GN_ARGS_append_libc-musl = ' use_allocator_shim=false'
-
-# V8's JIT infrastructure requires binaries such as mksnapshot and
-# mkpeephole to be run in the host during the build. However, these
-# binaries must have the same bit-width as the target (e.g. a x86_64
-# host targeting ARMv6 needs to produce a 32-bit binary). Instead of
-# depending on a third Yocto toolchain, we just build those binaries
-# for the target and run them on the host with QEMU.
-python do_create_v8_qemu_wrapper () {
-    """Creates a small wrapper that invokes QEMU to run some target V8 binaries
-    on the host."""
-    qemu_libdirs = [d.expand('${STAGING_DIR_HOST}${libdir}'),
-                    d.expand('${STAGING_DIR_HOST}${base_libdir}')]
-    qemu_cmd = qemu_wrapper_cmdline(d, d.getVar('STAGING_DIR_HOST', True),
-                                    qemu_libdirs)
-    wrapper_path = d.expand('${B}/v8-qemu-wrapper.sh')
-    with open(wrapper_path, 'w') as wrapper_file:
-        wrapper_file.write("""#!/bin/sh
-
-# This file has been generated automatically.
-# It invokes QEMU to run binaries built for the target in the host during the
-# build process.
-
-%s "$@"
-""" % qemu_cmd)
-    os.chmod(wrapper_path, 0o755)
-}
-do_create_v8_qemu_wrapper[dirs] = "${B}"
-addtask create_v8_qemu_wrapper after do_patch before do_configure
-
-python do_write_toolchain_file () {
-    """Writes a BUILD.gn file for Yocto detailing its toolchains."""
-    toolchain_dir = d.expand("${S}/src/build/toolchain/yocto")
-    bb.utils.mkdirhier(toolchain_dir)
-    toolchain_file = os.path.join(toolchain_dir, "BUILD.gn")
-    write_toolchain_file(d, toolchain_file)
-}
-addtask write_toolchain_file after do_patch before do_configure
 
 # More options to speed up the build
 GN_ARGS += "\
