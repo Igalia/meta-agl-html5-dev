@@ -1,7 +1,7 @@
 require chromium.inc
 
 SRC_URI = "\
-    git://github.com/igalia/${PN};branch=@37.agl.jellyfish;protocol=https;rev=${SRCREV_chromium79};name=chromium79 \
+    git://github.com/igalia/${PN};branch=@45.agl.jellyfish;protocol=https;rev=${SRCREV_chromium79};name=chromium79 \
     git://github.com/webosose/chromium-v8;branch=@chromium79;destsuffix=git/src/v8;rev=${SRCREV_v8};name=v8 \
     file://0001-GCC-fix-includes-for-gcc-10.patch \
 "
@@ -9,7 +9,7 @@ SRC_URI = "\
 # Needed by catapult
 DEPENDS += "python-six-native python-beautifulsoup4-native python-lxml-native python-html5lib-native python-webencodings-native"
 
-SRCREV_chromium79 = "68a7001e340e2854a70ac83824dcb90b14de9f63"
+SRCREV_chromium79 = "d0656f2e4692102b721a554591e7406d80116e72"
 SRCREV_v8 = "e876fd0e28bd3bda5815394874183b7e6079d440"
 
 BROWSER_APPLICATION = "chromium79-browser"
