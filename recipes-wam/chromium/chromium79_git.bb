@@ -21,6 +21,10 @@ GN_ARGS += "use_gtk=false"
 # Else we need HOSTTOOLS += "java"
 GN_ARGS += "closure_compile=false"
 
+# When using meta-clang, one can switch to using the lld linker
+# by using the ld-is-lld distro feature otherwise use gold linker
+GN_ARGS += "${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-lld', 'use_lld=true use_gold=false', 'use_lld=false use_gold=true', d)}"
+
 # Toolchains we will use for the build. We need to point to the toolchain file
 # we've created, set the right target architecture and make sure we are not
 # using Chromium's toolchain (bundled clang, bundled binutils etc).

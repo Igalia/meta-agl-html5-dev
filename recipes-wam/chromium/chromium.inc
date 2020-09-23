@@ -196,12 +196,6 @@ GN_ARGS += "\
     use_pulseaudio=false\
 "
 
-# Respect ld-is-gold in DISTRO_FEATURES when enabling gold
-# Similar patch applied in meta-browser
-# http://patchwork.openembedded.org/patch/77755/
-EXTRA_OEGN_GOLD = "${@bb.utils.contains('DISTRO_FEATURES', 'ld-is-gold', 'use_gold=true', 'use_gold=false', d)}"
-GN_ARGS += "${EXTRA_OEGN_GOLD}"
-
 # Doesn't build for armv[45]*
 COMPATIBLE_MACHINE = "(-)"
 COMPATIBLE_MACHINE_aarch64 = "(.*)"
