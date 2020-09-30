@@ -50,11 +50,6 @@ WEBOS_SYSTEM_BUS_FILES_LOCATION = "${S}/files/sysbus"
 
 PACKAGECONFIG ?= "jumbo use-upstream-wayland"
 
-# Options to enable debug-webcore build.
-# Add the following line to local.conf (or local.dev.inc) to enable them:
-#   PACKAGECONFIG_append_pn-chromium68 = " debug-webcore"
-# Other debug options are controlled by sections later in this file
-PACKAGECONFIG[debug-webcore] = "remove_webcore_debug_symbols=false,remove_webcore_debug_symbols=true"
 
 # Set a default value for jumbo file merge of 8. This should be good for build
 # servers and workstations with a big number of cores. In case build is
@@ -95,7 +90,6 @@ GN_ARGS = "\
     use_xkbcommon=true\
     use_pmlog=false\
     use_system_debugger_abort=true\
-    use_webos_gpu_info_collector=false\
     ${PACKAGECONFIG_CONFARGS}\
 "
 
