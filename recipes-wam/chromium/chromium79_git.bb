@@ -55,4 +55,5 @@ GN_ARGS += "\
     use_v8_context_snapshot=false \
 "
 
+D = "${OUT_DIR}/${BUILD_TYPE}/image"
 

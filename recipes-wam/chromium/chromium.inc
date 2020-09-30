@@ -273,30 +273,32 @@ install_chromium_browser() {
 }
 
 install_webruntime() {
+
+    # # Generate install webos webview files
+    # ${S}/depot_tools/ninja ${PARALLEL_MAKE} -C ${OUT_DIR}/${BUILD_TYPE} webos/install/weboswebruntime
+
+    # # Move installation files to D directory
+    # mv ${OUT_DIR}/${BUILD_TYPE}/image/* ${D}
+    # # Rename include and locale directories
+    # mv ${D}${includedir}/webruntime ${D}${includedir}/${BPN}
+    # mv ${D}${CBE_DATA_PATH}/neva_locales ${D}${CBE_DATA_LOCALES_PATH}
+
+    # # move this to separate mksnapshot-cross recipe once we figure out how to build just cross mksnapshot from chromium repository
+    # install -d ${D}${bindir_cross}
+    # gzip -c ${OUT_DIR}/${BUILD_TYPE}/${MKSNAPSHOT_PATH}mksnapshot > ${D}${bindir_cross}/${HOST_SYS}-mksnapshot.gz
+
     install -d ${D}${libdir}
     install -d ${D}${includedir}/${BPN}
     install -d ${D}${CBE_DATA_PATH}
     install -d ${D}${CBE_DATA_LOCALES_PATH}
 
     # Install webos webview files
-    if [ -e "${SRC_DIR}/webos/install" ]; then
-        cd ${SRC_DIR}
-        xargs --arg-file=${SRC_DIR}/webos/install/weboswebruntime/staging_inc.list cp --parents --target-directory=${D}${includedir}/${BPN}
-
-        cd ${OUT_DIR}/${BUILD_TYPE}
-
-        cp libcbe.so ${D}${libdir}/
-        if [ "${WEBOS_LTTNG_ENABLED}" = "1" ]; then
-          # use bindir if building non-cbe
-          cp libchromium_lttng_provider.so ${D}${libdir}/
-        fi
-        xargs --arg-file=${SRC_DIR}/webos/install/weboswebruntime/binary.list cp --parents --target-directory=${D}${CBE_DATA_PATH}
-        cat ${SRC_DIR}/webos/install/weboswebruntime/data_locales.list | xargs -I{} install -m 755 -p {} ${D}${CBE_DATA_LOCALES_PATH}
-    fi
+    ${S}/depot_tools/ninja ${PARALLEL_MAKE} -C ${OUT_DIR}/${BUILD_TYPE} webos/install/weboswebruntime
 
     # move this to separate mksnapshot-cross recipe once we figure out how to build just cross mksnapshot from chromium repository
-    install -d ${D}${bindir_cross}
-    gzip -c ${OUT_DIR}/${BUILD_TYPE}/${MKSNAPSHOT_PATH}mksnapshot > ${D}${bindir_cross}/${HOST_SYS}-mksnapshot.gz
+    install -d ${D}${base_bindir}
+    gzip -c ${OUT_DIR}/${BUILD_TYPE}/${MKSNAPSHOT_PATH}mksnapshot > ${D}${base_bindir}/${HOST_SYS}-mksnapshot.gz
+
 }
 
 do_install() {
