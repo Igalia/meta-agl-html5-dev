@@ -43,7 +43,7 @@ BROWSER_APP_BUILD_TARGET = "chrome"
 BROWSER_APPLICATION = "chromium68-browser"
 BROWSER_APPLICATION_DIR = "/opt/chromium68"
 
-TARGET = "${WEBRUNTIME_BUILD_TARGET} ${BROWSER_APP_BUILD_TARGET}"
+TARGET = "${WEBRUNTIME_BUILD_TARGET}"
 
 # Skip do_install_append of webos_system_bus. It is not compatible with this component.
 WEBOS_SYSTEM_BUS_FILES_LOCATION = "${S}/files/sysbus"
@@ -86,7 +86,7 @@ GN_ARGS = "\
     treat_warnings_as_errors=false\
     is_agl=true\
     use_cbe=true\
-    is_chrome_cbe=true\
+    is_chrome_cbe=false\
     use_cups=false\
     use_custom_libcxx=false\
     use_kerberos=false\
@@ -301,7 +301,6 @@ install_webruntime() {
 
 do_install() {
     install_webruntime
-    install_chromium_browser
 }
 
 WEBOS_SYSTEM_BUS_DIRS_LEGACY_BROWSER_APPLICATION = " \
