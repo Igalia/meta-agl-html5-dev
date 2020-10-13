@@ -14,6 +14,7 @@ SRCREV_v8 = "e876fd0e28bd3bda5815394874183b7e6079d440"
 
 BROWSER_APPLICATION = "chromium79-browser"
 BROWSER_APPLICATION_DIR = "/opt/chromium79"
+MKSNAPSHOT_PATH = "v8_snapshot/"
 
 GN_ARGS += "use_gtk=false"
 
