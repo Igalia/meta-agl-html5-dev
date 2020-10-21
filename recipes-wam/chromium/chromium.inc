@@ -215,7 +215,7 @@ do_compile() {
     fi
 
     export PATH="${S}/depot_tools:$PATH"
-    ${S}/depot_tools/ninja -v -C ${OUT_DIR}/${BUILD_TYPE} ${TARGET}
+    ${S}/depot_tools/ninja ${PARALLEL_MAKE} -v -C ${OUT_DIR}/${BUILD_TYPE} ${TARGET}
 }
 
 do_configure() {
