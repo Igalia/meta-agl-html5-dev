@@ -1,4 +1,5 @@
-DEPENDS = "glib-2.0 jsoncpp boost chromium79 wayland-ivi-extension libhomescreen"
+DEPENDS_remove = "chromium68"
+DEPENDS_append = " chromium79"
 
 EXTRA_OECMAKE = "\
     -DCMAKE_BUILD_TYPE=Release \
