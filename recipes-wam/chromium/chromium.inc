@@ -288,6 +288,8 @@ install_webruntime() {
 
     # Install webos webview files
     ${S}/depot_tools/ninja ${PARALLEL_MAKE} -C ${OUT_DIR}/${BUILD_TYPE} webos/install/weboswebruntime
+    chown root:root -R ${D}${libdir}
+    chown root:root -R ${D}${includedir}
 
     # move this to separate mksnapshot-cross recipe once we figure out how to build just cross mksnapshot from chromium repository
     install -d ${D}${base_bindir}
