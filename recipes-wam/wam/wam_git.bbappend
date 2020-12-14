@@ -7,6 +7,12 @@ EXTRA_OECMAKE = "\
     -DPLATFORM_NAME=${@'${DISTRO}'.upper().replace('-', '_')} \
     -DCHROMIUM_SRC_DIR=${STAGING_INCDIR}/chromium79"
 
+# Disable some of securit_flags
+# Disable D_FORTIFY_SOURCE=2 and -fstack-protector-strong
+# Refer conf/distro/include/security_flags.inc in meta-webos/conf/distro/include/webos.inc
+lcl_maybe_fortify = ""
+SECURITY_STACK_PROTECTOR = ""
+
 SRC_URI = "\
     git://github.com/igalia/${BPN}.git;branch=@43.agl.jellyfish;protocol=https \
     file://WebAppMgr@.service \
