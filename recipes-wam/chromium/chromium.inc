@@ -88,6 +88,7 @@ GN_ARGS = "\
     use_neva_media=false\
     use_ozone=true\
     use_xkbcommon=true\
+    use_wayland_gbm=false\
     use_pmlog=false\
     use_system_debugger_abort=true\
     ${PACKAGECONFIG_CONFARGS}\
