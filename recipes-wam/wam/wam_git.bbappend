@@ -19,4 +19,4 @@ SRC_URI = "\
     file://WebAppMgr.env \
     file://trunc-webapp-roles.patch \
 "
-SRCREV = "bd334e26efbd5803e9719a8c1f4071bb8fe646ab"
+SRCREV = "88e9df41cf6dfbcb5d2ea10c769a44e69171a1c3"
